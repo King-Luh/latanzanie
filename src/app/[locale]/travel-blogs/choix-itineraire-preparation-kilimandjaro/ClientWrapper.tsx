@@ -1,0 +1,156 @@
+'use client';
+
+import Link from 'next/link';
+import { useLocale } from 'next-intl';
+import AuthorMeta from '@/components/ui/AuthorMeta';
+import TOC from '@/components/ui/TOC';
+import TopicCard from '@/components/ui/TopicCard';
+
+const ids = ['overview','route-role','ascent-rate','difficulty','daily-comfort','weather','success-rate','guide-role'];
+
+const FR_TITLES: Record<string,string> = {
+  overview: "En quoi le choix de l’itinéraire fait-il partie de la préparation au Kilimandjaro ?",
+  'route-role': "L’itinéraire détermine le rythme et l’acclimatation",
+  'ascent-rate': 'Montée progressive et nuits en altitude',
+  difficulty: 'Le niveau de difficulté selon l’itinéraire',
+  'daily-comfort': 'Le confort quotidien dépend du parcours choisi',
+  weather: 'Impact de l’itinéraire sur la météo et le terrain',
+  'success-rate': 'Le choix influence les chances de succès',
+  'guide-role': 'Le rôle clé du guide local'
+};
+
+const FR_SECTIONS: Record<string,string> = {
+  overview: `Le choix de l’itinéraire est une étape essentielle dans la préparation de l’ascension du Mont Kilimandjaro. Beaucoup de randonneurs se concentrent uniquement sur la condition physique ou l’équipement, mais l’itinéraire influence directement l’acclimatation à l’altitude, la difficulté du trek, le confort quotidien et les chances d’atteindre le sommet. En tant que guide local du Kilimandjaro, je constate chaque saison que les grimpeurs qui choisissent un itinéraire adapté à leur niveau, comme Machame, Lemosho ou Rongai, vivent une expérience plus sûre, plus agréable et nettement plus réussie.
+
+L’itinéraire détermine le rythme de montée et l’acclimatation
+
+L’altitude est le principal défi du Kilimandjaro, bien avant la difficulté technique. Certains itinéraires sont conçus pour offrir une montée progressive, avec suffisamment de temps pour que le corps s’adapte au manque d’oxygène. Par exemple, l’itinéraire Lemosho est reconnu comme l’un des meilleurs pour l’acclimatation, car il commence lentement et inclut plusieurs nuits en altitude avant l’attaque du sommet. L’itinéraire Machame, quant à lui, utilise le principe de « monter haut, dormir bas », ce qui favorise également l’acclimatation, mais demande plus d’efforts physiques quotidiens. À l’inverse, des itinéraires plus directs comme Marangu montent plus rapidement, laissant moins de temps au corps pour s’adapter, ce qui augmente le risque de mal aigu des montagnes si le rythme n’est pas strictement contrôlé. Le choix de l’itinéraire conditionne donc directement la manière dont le corps va réagir à l’altitude.`,
+  
+  'route-role': `Le niveau de difficulté varie fortement selon l’itinéraire
+
+Tous les itinéraires du Kilimandjaro ne présentent pas la même difficulté physique. Le Machame est souvent considéré comme plus exigeant, en raison de ses montées et descentes fréquentes et de certaines journées longues. Le Lemosho, bien que plus long en nombre de jours, est plus progressif et généralement mieux toléré par les randonneurs. Le Rongai, situé sur le versant nord, propose une montée plus régulière et moins technique, ce qui peut convenir à des personnes recherchant un effort plus constant. Choisir un itinéraire adapté à sa condition physique permet de gérer l’effort sur la durée et d’éviter un épuisement prématuré qui pourrait compromettre l’ascension.`,
+  
+  'ascent-rate': `Montée progressive et nuits en altitude
+
+Des itinéraires comme Lemosho commencent lentement et incluent des journées d’acclimatation; d’autres montent plus directement. Passer davantage de nuits en altitude aide l’organisme à produire plus de globules rouges, améliorant ainsi le transport de l’oxygène dans le sang. Un bon guide local adapte l’itinéraire en fonction du niveau, du rythme et des réactions du groupe.`,
+  
+  difficulty: `Le confort quotidien dépend du parcours choisi
+
+Le confort pendant l’ascension dépend fortement de l’itinéraire. Des routes comme Machame et Marangu sont très populaires et donc plus fréquentées, surtout en haute saison. Cela peut rassurer certains randonneurs, mais aussi entraîner plus de bruit et de promiscuité dans les camps. À l’inverse, les itinéraires Lemosho et Rongai sont plus sauvages et offrent une expérience plus calme et immersive en pleine nature. Ce confort psychologique joue un rôle important dans la préparation mentale, car un environnement plus serein aide à mieux gérer la fatigue et à conserver la motivation jour après jour.`,
+  
+  'daily-comfort': `L’impact de l’itinéraire sur la météo et les conditions du terrain
+
+Chaque itinéraire traverse des zones climatiques différentes et est exposé différemment aux conditions météo. Le Rongai, situé au nord de la montagne, est généralement plus sec et souvent recommandé pendant la saison des pluies. Le Machame et le Lemosho, qui passent par des zones forestières humides, peuvent être plus boueux et glissants au début de l’ascension. Certains itinéraires sont aussi plus exposés au vent ou au froid en altitude. Choisir un itinéraire adapté à la saison permet de réduire l’inconfort, d’améliorer la sécurité et de mieux anticiper l’équipement nécessaire.`,
+  
+  weather: `Le choix de l’itinéraire influence les chances de succès au sommet
+
+Les statistiques montrent clairement que les itinéraires plus longs, offrant une meilleure acclimatation, présentent un taux de réussite plus élevé au sommet du Kilimandjaro. Des itinéraires comme Lemosho et Machame sur 7 ou 8 jours permettent au corps de mieux s’adapter et augmentent considérablement les chances d’atteindre Uhuru Peak en bonne santé. Le choix de l’itinéraire devient donc une décision stratégique, qui influence directement le succès final bien plus que la seule condition physique.`,
+  
+  'success-rate': `Le rôle clé du guide local dans le choix de l’itinéraire
+
+Un guide local expérimenté connaît parfaitement les itinéraires du Kilimandjaro, leurs avantages, leurs difficultés et leurs limites. Il sait quel itinéraire recommander selon l’âge, la condition physique, l’expérience en montagne et la période de l’année. Choisir un itinéraire avec l’aide d’un guide local permet d’adapter la préparation de manière réaliste et personnalisée, en mettant toutes les chances de son côté pour une ascension réussie et sécurisée.
+
+Conseil du guide local 🏔️
+
+> « Sur le Kilimandjaro, la réussite ne dépend pas seulement de la force physique, mais du chemin choisi. Un bon itinéraire, bien adapté, est déjà une grande partie du sommet. »` 
+};
+
+const EN_TITLES: Record<string,string> = {
+  overview: 'How route choice is part of Kilimanjaro preparation',
+  'route-role': 'Route role in pace and acclimatization',
+  'ascent-rate': 'Ascent rate and nights at altitude',
+  difficulty: 'Difficulty varies by route',
+  'daily-comfort': 'Daily comfort depends on route',
+  weather: 'Route impact on weather and terrain',
+  'success-rate': 'Route choice affects summit success',
+  'guide-role': 'Guide’s key role'
+};
+
+const EN_SECTIONS: Record<string,string> = {
+  overview: `Route choice affects acclimatization, difficulty and daily comfort. Progressive routes increase summit chances.`,
+  'route-role': `Some routes offer a gentler ascent and more nights at altitude, promoting red blood cell production.`,
+  'ascent-rate': `Lemosho starts slowly with acclimatization days; other routes ascend more directly.`,
+  difficulty: `Machame is demanding; Lemosho is more gradual; Rongai is steadier—pick by ability.`,
+  'daily-comfort': `Route affects campsite crowding and psychological comfort.`,
+  weather: `Routes cross different climate zones; Rongai tends to be drier and may suit wet seasons.`,
+  'success-rate': `Longer, progressive routes tend to have higher summit success rates.`,
+  'guide-role': `An experienced guide recommends the best route based on age, fitness and season.`
+};
+
+function render(c:string){
+  return c.split('\n\n').map((b,i)=> 
+    b.trim().startsWith('>') ? 
+      <blockquote key={i} className="pl-4 border-l-4 italic text-black">{b.replace(/^>\s?/,'')}</blockquote> : 
+      <p key={i} className="my-4 text-black">{b}</p>
+  );
+}
+
+type Section = {
+  id: string;
+  title: string;
+  content: string;
+};
+
+type ClientWrapperProps = {
+  locale: string;
+  sections: Section[];
+  FR_TITLES: Record<string, string>;
+  EN_TITLES: Record<string, string>;
+  FR_SECTIONS: Record<string, string>;
+  EN_SECTIONS: Record<string, string>;
+};
+
+export default function ClientWrapper({
+  locale,
+  sections,
+  FR_TITLES,
+  EN_TITLES,
+  FR_SECTIONS,
+  EN_SECTIONS
+}: ClientWrapperProps) {
+  const currentLocale = useLocale() || locale;
+
+  return (
+    <>
+      <section className="py-12 border-b border-gray-200">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <AuthorMeta author={currentLocale === 'fr' ? 'Guide d’itinéraire' : 'Route Guide'} date={currentLocale === 'fr' ? 'Décembre 2025' : 'December 2025'} />
+        </div>
+      </section>
+
+      <section className="md:hidden py-8 bg-white border-b border-gray-200">
+        <div className="container mx-auto px-4">
+          <TOC title={currentLocale === 'fr' ? 'Sommaire' : 'Overview'} items={sections.map(s => ({ id: s.id, label: s.title, level: 2 }))} onSelect={() => {}} />
+        </div>
+      </section>
+
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto md:flex md:gap-8">
+            <aside className="hidden md:block md:w-72 lg:w-80 sticky top-24 self-start">
+              <div className="bg-white rounded-lg border p-4 shadow-sm mb-6">
+                <TOC title={currentLocale === 'fr' ? 'Sommaire' : 'Overview'} items={sections.map(s => ({ id: s.id, label: s.title, level: 2 }))} onSelect={() => {}} />
+              </div>
+            </aside>
+
+            <div className="flex-1 space-y-6">
+              <div className="mb-8">
+                <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight text-black">{currentLocale === 'fr' ? FR_TITLES.overview : EN_TITLES.overview}</h1>
+                <p className="text-base md:text-lg text-black max-w-3xl">{currentLocale === 'fr' ? 'Le choix d’itinéraire influence l’acclimatation et les chances de succès.' : 'Route choice influences acclimatization and summit chances.'}</p>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg shadow-md p-6 text-black">
+                {sections.map(s => (
+                  <article key={s.id} id={s.id} className="mb-8">
+                    <h2 className="text-2xl font-semibold mb-2 text-black">{s.title}</h2>
+                    <div className="prose max-w-none text-black" style={{ whiteSpace: 'pre-wrap' }}>{render(s.content)}</div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
