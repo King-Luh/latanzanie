@@ -141,6 +141,9 @@ export default function Home() {
       {/* Remove padding top to make hero section start immediately after navbar */}
       <div>
         <Hero />
+
+         {/* PASTE IT RIGHT HERE */}
+        <Reviews />
         
         {/* Adventure Trips Section */}
         <section className="py-16 bg-gray-50">
