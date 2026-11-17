@@ -335,8 +335,7 @@ export default function Home() {
       </div>
             {/* ... other homepage content ... */}
       
-      {/* ADD THIS HERE */}
-      <Reviews />
+   
       
   );
 
