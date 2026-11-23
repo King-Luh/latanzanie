@@ -706,9 +706,9 @@
     "adventureTypeLabel": "Aventure",
     "bookCall": "Réserver un appel avec notre équipe",
     "downloadGuide": "Obtenir votre guide gratuit du Kilimandjaro",
-   /*change code here for pages*/
+  
     "hero": {
-      "title": "Grimper le Kilimandjaro",
+      "title": "L’Ascension du Kilimandjaro    Grimper le Kilimandjaro",
       "durationLabel": "Durée",
       "duration": "7-9 jours",
       "difficultyLabel": "Difficulté",
