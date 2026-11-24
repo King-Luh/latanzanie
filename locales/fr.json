@@ -706,7 +706,8 @@
     "adventureTypeLabel": "Aventure",
     "bookCall": "Réserver un appel avec notre équipe",
     "downloadGuide": "Obtenir votre guide gratuit du Kilimandjaro",
-  
+    
+  /*changes to different cards here*/
     "hero": {
       "title": "L’Ascension du Kilimandjaro",
       "durationLabel": "Durée",
